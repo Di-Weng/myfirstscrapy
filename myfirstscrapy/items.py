@@ -15,3 +15,8 @@ class MyfirstscrapyItem(scrapy.Item):
     link = scrapy.Field()
     desc = scrapy.Field()
     pass
+
+class loupanItem(scrapy.Item):
+    title = scrapy.Field()
+    id = scrapy.Field()
+    price = scrapy.Field()
