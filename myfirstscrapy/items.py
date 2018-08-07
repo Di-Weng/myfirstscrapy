@@ -18,5 +18,4 @@ class MyfirstscrapyItem(scrapy.Item):
 
 class loupanItem(scrapy.Item):
     title = scrapy.Field()
-    id = scrapy.Field()
     price = scrapy.Field()

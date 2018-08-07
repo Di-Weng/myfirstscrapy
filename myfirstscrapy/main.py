@@ -19,4 +19,5 @@ from scrapy import cmdline
 from scrapy import settings
 # cmdline.execute("scrapy crawl csdn_test".split())
 # cmdline.execute("scrapy crawl lianjia_xm".split())
-cmdline.execute("scrapy crawl web_lianjia_xm".split())
+# cmdline.execute("scrapy crawl web_lianjia_xm".split())
+cmdline.execute("scrapy crawl xmhouse".split())
