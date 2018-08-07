@@ -58,7 +58,7 @@ class Myfirstscrapy(scrapy.Spider):
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.109 Safari/537.36"
     }
 # 744
-    for page in range(2,3):
+    for page in range(2,744):
         url = "http://esf.xmhouse.com/sell/t_r3502030000_a_u_l_z_s1_itp_b_it_if_ih_p-_ar-_pt_o0_psundefined_{0}.html?keyWord=".format(page)
         start_urls.append(url)
 
