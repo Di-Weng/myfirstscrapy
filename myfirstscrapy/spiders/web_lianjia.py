@@ -18,12 +18,17 @@
 import scrapy
 from scrapy import settings
 from scrapy.http.request import Request
-from myfirstscrapy.items import MyfirstscrapyItem
+from myfirstscrapy.items import loupanItem
+from scrapy.loader import ItemLoader
+import json
 
 global out_dic
 out_dic = {}
+
+
+
 class Myfirstscrapy(scrapy.Spider):
-    name = "lianjia_xm"
+    name = "web_lianjia_xm"
     allowed_domains = ["xm.lianjia.com"]
     start_urls = [
         "https://xm.lianjia.com/ershoufang/pg1"
@@ -45,31 +50,34 @@ class Myfirstscrapy(scrapy.Spider):
     def parse(self, response):
         # url_dic = {}
         global out_dic
-        print(response)
-        district_list = ['思明', '同安', '翔安', '集美', '湖里', '海沧']
-        for li_first in response.css("li.resblock-list-item"):
-            district = li_first.css("div.resblock-location-line::text").extract()[0].split('-')[0].strip()
-            if(district not in district_list):
-                continue
-            title = li_first.css("li::attr('data-index')").extract()[0]
-            # title = li_first.css("h3.name::text").extract()[0]
-            id = li_first.css("li::attr('data-ulog-exposure')").extract()[0].split('=')[-1]
-            price = li_first.css("span.price_num::text").extract()[0]
-            print(title + ':' +price)
-            with open(r'C:\Users\root\Desktop\house_price.txt', 'a+', encoding='utf-8') as f:
-                f.write(title)
-                f.write(',')
-                f.write(price)
-                f.write('\n')
-            # yield scrapy.Request(url, callback=self.parse_dir_contents)
-        # print(url_dic)
 
-    def parse_dir_contents(self, response):
-        print('_____')
-        print(response.body().decode('utf-8'))
-        for sel in response.xpath('//ul/li'):
-            item = MyfirstscrapyItem()
-            item['title'] = sel.xpath('a/text()').extract()
-            item['link'] = sel.xpath('a/@href').extract()
-            item['desc'] = sel.xpath('text()').extract()
+        ul = response.css("ul.sellListContent")
+        for li in ul.css("li.LOGCLICKDATA"):
+            item = loupanItem()
+            item['title'] = li.css("a[data-el='region']::text").extract()[0]
+            # title = li_first.css("h3.name::text").extract()[0]
+            item['id'] = li.css("div.title").css("a::attr(data-housecode)").extract()[0]
+            item['price'] = li.css("div.unitPrice::attr('data-price')").extract()[0]
             yield item
+
+
+            # price = house_list.css("span.price_num::text").extract()[0]
+            # print(title + ':' +price)
+
+            # with open(r'C:\Users\root\Desktop\house_price.txt', 'a+', encoding='utf-8') as f:
+            #     f.write(title)
+            #     f.write(',')
+            #     f.write(price)
+            #     f.write('\n')
+            # yield scrapy.Request(response, callback=self.parse_dir_contents, meta=)
+        # print(url_dic)
+    #
+    # def parse_dir_contents(self, response):
+    #     print('_____')
+    #     print(response.body().decode('utf-8'))
+    #     for sel in response.xpath('//ul/li'):
+    #         item = MyfirstscrapyItem()
+    #         item['title'] = sel.xpath('a/text()').extract()
+    #         item['link'] = sel.xpath('a/@href').extract()
+    #         item['desc'] = sel.xpath('text()').extract()
+    #         yield item
