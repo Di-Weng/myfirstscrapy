@@ -66,8 +66,14 @@ ROBOTSTXT_OBEY = False
 ITEM_PIPELINES = {
    'myfirstscrapy.pipelines.MyfirstscrapyPipeline': 300,
     'myfirstscrapy.pipelines.JsonWriterPipeline':600,
+    'myfirstscrapy.pipelines.xmhouseMongoPipeline':600,
 }
-
+MONGO_HOST = '101.200.54.165'
+MONGO_PORT = 27017
+MONGO_USER = 'admin'
+MONGO_PWD = 'wd123456'
+MONGO_DB = 'xmhousedb'
+MONGO_COLL = 'xmhouse'
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
